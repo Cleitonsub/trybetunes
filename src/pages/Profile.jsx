@@ -4,7 +4,7 @@ class Profile extends React.Component {
   render() {
     return (
       <div data-testid="page-profile">
-        <p>TrybeTunes</p>
+        <p>TrybeTunes Profile</p>
       </div>
     );
   }

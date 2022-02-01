@@ -4,7 +4,7 @@ class Album extends React.Component {
   render() {
     return (
       <div data-testid="page-album">
-        <p>TrybeTunes</p>
+        <p>TrybeTunes Album</p>
       </div>
     );
   }
