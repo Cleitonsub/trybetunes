@@ -20,6 +20,9 @@ class Album extends React.Component {
   }
 
   musicData = async () => {
+    // Match é um objeto que tem as informações de como o <Route path> correspondeu a URL,
+    // e nela eu acceso os parametros que tem a id da música, link:
+    // https://v5.reactrouter.com/web/api/match
     const { match: { params: { id } } } = this.props;
     const album = await getMusics(id);
     // console.log(album);
