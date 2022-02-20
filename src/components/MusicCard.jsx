@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from '../pages/Loading';
 
 class MusicCard extends Component {
   constructor() {
     super();
 
-    // State mantém a informação de quais checkboxes foram marcados/desmarcados, link:
-    // https://medium.com/@wlodarczyk_j/handling-multiple-checkboxes-in-react-js-337863fd284e
     this.state = {
       loading: true,
       favoritesSongs: [],
-      checked: new Map(),
     };
   }
 
@@ -40,19 +37,22 @@ class MusicCard extends Component {
     this.setState({
       loading: false,
     });
-    await addSong(song);
+
+    if (!target.checked) {
+      await removeSong(song);
+    } else {
+      await addSong(song);
+    }
+
     this.setState({
       loading: true,
     });
-    const { name, checked } = target;
-    this.setState((prevState) => ({
-      checked: prevState.checked.set(name, !checked),
-    }));
+    this.checkFavorites();
   }
 
   render() {
     const { musics } = this.props;
-    const { loading, checked, favoritesSongs } = this.state;
+    const { loading, favoritesSongs } = this.state;
     return (
       <ul>
         {!loading && <Loading />}
@@ -79,9 +79,7 @@ class MusicCard extends Component {
                   name={ music.trackId }
                   className="checkbox"
                   onChange={ this.handleChange }
-                  checked={ favoritesSongs
-                    .some((song) => song.trackId === music.trackId)
-                    ? true : checked.get(music.trackId) }
+                  checked={ favoritesSongs.some((song) => song.trackId === music.trackId) }
                 />
               </label>
             </li>)
