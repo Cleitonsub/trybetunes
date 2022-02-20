@@ -38,6 +38,7 @@ class Profile extends React.Component {
               <p>{ description }</p>
               <img
                 src={ image }
+                alt="Imagem do usuário"
                 data-testid="profile-image"
               />
               <Link to="/profile/edit">Editar perfil</Link>
