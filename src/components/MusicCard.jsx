@@ -79,7 +79,8 @@ class MusicCard extends Component {
                   name={ music.trackId }
                   className="checkbox"
                   onChange={ this.handleChange }
-                  checked={ favoritesSongs.some((song) => song.trackId === music.trackId) }
+                  checked={ favoritesSongs
+                    .some((song) => song.trackId === music.trackId) }
                 />
               </label>
             </li>)
